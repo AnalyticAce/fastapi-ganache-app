@@ -1,7 +1,8 @@
-from fastapi import FastAPI, HTTPException, APIRouter
+from fastapi import FastAPI, HTTPException, APIRouter, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from app.wallet import generate_wallet, get_balance, send_transaction
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI(
     title="FASTAPI SIMPLE GANACHE",
@@ -13,7 +14,17 @@ app = FastAPI(
     version="1.0.0",
     docs_url=None,
 )
-    
+
+app.mount("/static", StaticFiles(directory="app/template/static"), name="static")
+templates = Jinja2Templates(directory="app/template")
+
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("index.html", {
+        "request": request,
+        "title": "Ethereum Wallet Manager"
+    })
+
 wallet_router = APIRouter(
     prefix="/api",
     tags=["Wallet"],
@@ -38,7 +49,12 @@ def balance(address: str):
         raise HTTPException(status_code=400, detail=str(e))
 
 @wallet_router.post("/send-transaction/")
-def transaction(sender: str, receiver: str, private_key: str, amount: float):
+async def transaction(request: Request):
+    data = await request.json()
+    sender = data["sender"]
+    receiver = data["receiver"]
+    private_key = data["private_key"]
+    amount = data["amount"]
     try:
         tx_hash = send_transaction(sender, receiver, private_key, amount)
         return {

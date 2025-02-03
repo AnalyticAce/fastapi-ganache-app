@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="wallet-interface">
+    <!-- Wallet Generation Section -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Generate New Wallet</h3>
+        </div>
+        <div class="card-body">
+            <button onclick="generateWallet()" class="btn btn-primary">
+                Generate Wallet
+            </button>
+            <div id="wallet-result" class="mt-3"></div>
+        </div>
+    </div>
+
+    <!-- Balance Check Section -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Check Balance</h3>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <input type="text" id="address" class="form-control" placeholder="Enter wallet address">
+            </div>
+            <button onclick="getBalance()" class="btn btn-info">
+                Check Balance
+            </button>
+            <div id="balance-result" class="mt-3"></div>
+        </div>
+    </div>
+
+    <!-- Transaction Form -->
+    <div class="card">
+        <div class="card-header">
+            <h3>Send Transaction</h3>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <input type="text" id="sender" class="form-control" placeholder="Sender address">
+            </div>
+            <div class="mb-3">
+                <input type="text" id="receiver" class="form-control" placeholder="Receiver address">
+            </div>
+            <div class="mb-3">
+                <input type="password" id="privateKey" class="form-control" placeholder="Sender private key">
+            </div>
+            <div class="mb-3">
+                <input type="number" id="amount" class="form-control" placeholder="Amount in ETH">
+            </div>
+            <button onclick="sendTransaction()" class="btn btn-success">
+                Send Transaction
+            </button>
+            <div id="transaction-result" class="mt-3"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
