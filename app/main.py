@@ -34,7 +34,7 @@ class TransactionRequest(BaseModel):
     amount: float
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "sender": "0x21a12881C2Fd44BC6D0f908D92c504fEA507b5D4",
                 "receiver": "0x8f6a04B0448B89dfeA3f6798Ba0CF428b799b3C5",
