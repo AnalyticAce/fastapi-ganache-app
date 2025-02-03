@@ -14,33 +14,54 @@ fastapi-ganache-app
 └── README.md             # Project documentation
 ```
 
-## Requirements
+## Getting Started
 
-To run this project, you need to have the following dependencies installed:
+### Prerequisites
 
-- FastAPI
-- Web3
-- Uvicorn (for running the FastAPI server)
+- Python 3.8+
+- Node.js 14+
+- Docker (optional, for containerized deployment)
 
-You can install the required packages using pip:
+### Installation
 
+1. Clone the repository:
+
+```sh
+git clone https://github.com/AnalyticAce/fastapi-ganache-app.git
+cd fastapi-ganache-app
 ```
+
+2. Set up the backend:
+
+```sh
+python -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Running the Application
+### Running the Application
 
-1. Ensure that Ganache is running on your local machine.
-2. Navigate to the project directory.
-3. Run the FastAPI application using Uvicorn:
+#### Backend
 
+1. Start the backend server:
+
+```sh
+fastapi run app/main.py --host 0.0.0.0 --port 8080 --reload
 ```
-uvicorn app.main:app --reload
+
+#### Docker (Optional)
+
+1. Build and run the Docker containers:
+
+```sh
+docker compose up --build
 ```
 
-4. Access the API documentation at `http://127.0.0.1:8000/docs`.
+## API Documentation
 
-## API Endpoints
+The API documentation is available at `/docs` when the backend server is running. It provides detailed information about the available endpoints, request parameters, and responses.
+
+### API Endpoints
 
 - **Generate Wallet**
   - **Endpoint:** `/generate_wallet`
@@ -56,6 +77,18 @@ uvicorn app.main:app --reload
   - **Endpoint:** `/send_transaction`
   - **Method:** `POST`
   - **Description:** Sends a specified amount of Ether from one address to another.
+
+## Contributing
+
+We welcome contributions from the community! To contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Make your changes and commit them with descriptive messages.
+4. Push your changes to your fork.
+5. Create a pull request to the main repository.
+
+Please ensure your code adheres to the project's coding standards and includes appropriate tests.
 
 ## License
 
