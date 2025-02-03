@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: .
+    container_name: server_area
+    image: server_area
+    ports:
+      - "8080:8080"
+    networks:
+      - area_network
+    depends_on:
+      - ganache
+    environment:
+      - GANACHE_HOST=ganache
+      - GANACHE_PORT=8545
+
+  ganache:
+    image: node:14-alpine
+    container_name: ganache_cli
+    command: sh -c "npm install -g ganache-cli && ganache-cli -h 0.0.0.0 --mnemonic 'myth like bonus scare over problem client lizard pioneer submit female collect' --chain.allowUnlimitedContractSize --wallet.gasLimit 10000000000"
+    ports:
+      - "8545:8545"
+    networks:
+      - area_network
+    volumes:
+      - ganache_data:/tmp
+
+volumes:
+  app_volume:
+  ganache_data:
+
+networks:
+  area_network:
+    driver: bridge
